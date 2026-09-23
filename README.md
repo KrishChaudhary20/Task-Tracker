@@ -1,5 +1,7 @@
 Task Tracker — Full Stack Assignment
+----------------------------------------------------------------------------------------------------
 A full-stack Task Tracker application built for the assignment.
+
 ----------------------------------------------------------------------------------------------------
 Project
 
@@ -40,22 +42,32 @@ Content-Type: application/json
 API endpoints
 
 Auth
+
 POST /api/auth/register
+
 POST /api/auth/login
 
 Users
+
 GET /api/users/me
+
 GET /api/users — admin
+
 DELETE /api/users/:id — admin
 
 Tasks
+
 POST /api/tasks
+
 GET /api/tasks
+
 PUT /api/tasks/:id
+
 DELETE /api/tasks/:id
 
 ----------------------------------------------------------------------------------------------------
 Testing
+
 1.Backend:
 cd backend
 npm test
