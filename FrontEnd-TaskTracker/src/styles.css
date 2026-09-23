@@ -1,0 +1,202 @@
+@import "tailwindcss";
+@theme {
+  --font-weight-inherit: inherit;
+}
+@layer base {
+  * {
+    @apply box-border;
+  }
+  body {
+    @apply m-0 min-w-[320px] bg-slate-50 font-sans text-slate-800;
+  }
+  button,
+  input,
+  textarea,
+  select {
+    @apply font-inherit;
+  }
+  a {
+    @apply text-inherit;
+  }
+}
+
+@layer components {
+  .navbar {
+    @apply sticky top-0 z-10 flex h-17 items-center justify-between border-b border-slate-200 bg-white px-[5%];
+  }
+  .brand {
+    @apply text-xl font-extrabold no-underline;
+  }
+  .navbar nav {
+    @apply flex items-center gap-4;
+  }
+  .navbar nav a {
+    @apply text-slate-500 no-underline hover:text-indigo-600;
+  }
+  .link-button {
+    @apply border-0 bg-transparent text-slate-500;
+  }
+  .container {
+    @apply mx-auto w-[90%] max-w-275 py-10;
+  }
+  .hero {
+    @apply mb-8 flex items-center justify-between gap-6;
+  }
+  .hero h1 {
+    @apply my-1 text-4xl font-black tracking-tight;
+  }
+  .hero p {
+    @apply my-1 text-slate-500;
+  }
+  .eyebrow {
+    @apply text-xs font-extrabold uppercase tracking-[.12em] text-indigo-600;
+  }
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+  }
+  .stats {
+    @apply mb-8 grid grid-cols-3 gap-4;
+  }
+  .stat {
+    @apply flex flex-col gap-1 p-5;
+  }
+  .stat strong {
+    @apply text-3xl font-black;
+  }
+  .stat span {
+    @apply text-slate-500;
+  }
+  button {
+    @apply cursor-pointer rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-800;
+  }
+  button.primary {
+    @apply border-indigo-600 bg-indigo-600 font-bold text-white hover:bg-indigo-700;
+  }
+  button.danger {
+    @apply border-red-200 text-red-600 hover:bg-red-50;
+  }
+  button:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+  .full {
+    @apply w-full;
+  }
+  .section-heading {
+    @apply my-8;
+  }
+  .section-heading h2,
+  section > h2 {
+    @apply mb-1 text-xl font-bold;
+  }
+  .section-heading p {
+    @apply text-slate-500;
+  }
+  .task-list {
+    @apply grid gap-3;
+  }
+  .task-card {
+    @apply flex items-center justify-between gap-5 p-5;
+  }
+  .task-card h3 {
+    @apply my-2 text-lg font-bold;
+  }
+  .task-card p {
+    @apply m-0 text-slate-500;
+  }
+  .actions {
+    @apply flex flex-wrap gap-2;
+  }
+  .status {
+    @apply inline-block rounded-full px-2.5 py-1 text-xs font-bold capitalize;
+  }
+  .status.pending {
+    @apply bg-amber-50 text-amber-700;
+  }
+  .status.completed {
+    @apply bg-emerald-50 text-emerald-700;
+  }
+  .form-card {
+    @apply my-5 p-6;
+  }
+  .form-card h2 {
+    @apply mt-0 text-lg font-bold;
+  }
+  label {
+    @apply my-3.5 grid gap-1.5 font-semibold;
+  }
+  input,
+  textarea,
+  select {
+    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100;
+  }
+  textarea {
+    @apply min-h-25 resize-y;
+  }
+  .alert {
+    @apply my-3 rounded-xl px-3.5 py-3;
+  }
+  .alert.error {
+    @apply border border-red-200 bg-red-50 text-red-700;
+  }
+  .empty {
+    @apply p-12 text-center text-slate-500;
+  }
+  .center {
+    @apply grid min-h-[40vh] place-items-center;
+  }
+  .center-text {
+    @apply text-center text-slate-500;
+  }
+  .auth-page {
+    @apply grid min-h-screen place-items-center p-6;
+  }
+  .auth-card {
+    @apply w-full max-w-md p-8;
+  }
+  .auth-card h1 {
+    @apply mt-0 text-3xl font-black;
+  }
+  .auth-card > p {
+    @apply text-slate-500;
+  }
+  section {
+    @apply mt-9;
+  }
+  .table-wrap {
+    @apply overflow-x-auto;
+  }
+  table {
+    @apply w-full border-collapse;
+  }
+  th,
+  td {
+    @apply border-b border-slate-100 px-4 py-3 text-left;
+  }
+  th {
+    @apply text-xs uppercase tracking-wider text-slate-500;
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    @apply px-4;
+  }
+  .navbar nav {
+    @apply gap-2;
+  }
+  .container {
+    @apply w-[92%] py-7;
+  }
+  .hero {
+    @apply flex-col items-start;
+  }
+  .stats {
+    @apply grid-cols-1;
+  }
+  .task-card {
+    @apply flex-col items-start;
+  }
+  .auth-card {
+    @apply p-6;
+  }
+}
