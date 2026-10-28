@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../services/api";
+import ErrorMessage from "../components/ErrorMessage";
+
+const fields = [
+  ["name", "Name", "text", "name"],
+  ["email", "Email", "email", "email"],
+  ["password", "Password", "password", "new-password"],
+  ["confirmPassword", "Confirm password", "password", "new-password"],
+];
 
 export default function Register() {
   const navigate = useNavigate();
@@ -19,14 +27,12 @@ export default function Register() {
 
   async function submit(e) {
     e.preventDefault();
-
-    if (!form.name.trim() || !form.email.trim() || !form.password) {
+    if (!form.name.trim() || !form.email.trim() || !form.password)
       return setError("Name, email and password are required");
-    }
     if (form.password.length < 6)
-      return setError("Password must be at least 6 characters");
+      return setError("Use at least 6 characters for your password");
     if (form.password !== form.confirmPassword)
-      return setError("Passwords do not match");
+      return setError("Passwords don't match");
 
     setError("");
     setLoading(true);
@@ -45,47 +51,37 @@ export default function Register() {
   }
 
   return (
-    <main className="auth-page">
-      <form className="card auth-card" onSubmit={submit}>
-        <h1>Create account</h1>
-        <p>Start managing your tasks.</p>
-        {error && <div className="alert error">{error}</div>}
-        <label>
-          Name
-          <input name="name" value={form.name} onChange={update} />
-        </label>
-        <label>
-          Email
-          <input
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={update}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            name="password"
-            type="password"
-            value={form.password}
-            onChange={update}
-          />
-        </label>
-        <label>
-          Confirm password
-          <input
-            name="confirmPassword"
-            type="password"
-            value={form.confirmPassword}
-            onChange={update}
-          />
-        </label>
-        <button className="primary full" disabled={loading}>
-          {loading ? "Creating..." : "Register"}
+    <main className="grid min-h-screen place-items-center px-4 py-10">
+      <form className="card w-full max-w-md animate-rise p-8" onSubmit={submit}>
+        <h1 className="text-3xl font-extrabold">Create account</h1>
+        <p className="mt-1 text-ink/60">Start organizing your tasks.</p>
+        <ErrorMessage message={error} />
+        <div className="mt-6 space-y-4">
+          {fields.map(([name, label, type, auto]) => (
+            <label key={name} className="label">
+              {label}
+              <input
+                className="field"
+                name={name}
+                type={type}
+                autoComplete={auto}
+                value={form[name]}
+                onChange={update}
+              />
+            </label>
+          ))}
+        </div>
+        <button className="btn btn-primary mt-6 w-full py-3" disabled={loading}>
+          {loading ? "Creating…" : "Create account"}
         </button>
-        <p className="center-text">
-          Already registered? <Link to="/login">Login</Link>
+        <p className="mt-5 text-center text-sm text-ink/60">
+          Already registered?{" "}
+          <Link
+            to="/login"
+            className="font-semibold text-brand hover:underline"
+          >
+            Log in
+          </Link>
         </p>
       </form>
     </main>

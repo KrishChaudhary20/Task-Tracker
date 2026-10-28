@@ -26,49 +26,65 @@ export default function TaskForm({ task, onSubmit, onCancel, submitting }) {
   async function submit(e) {
     e.preventDefault();
     if (!form.title.trim()) {
-      setError("Title is required");
+      setError("Add a title before saving");
       return;
     }
     setError("");
-    await onSubmit(form);
-    if (!task) setForm(initial);
+    const ok = await onSubmit(form);
+    if (!task && ok !== false) setForm(initial); // keep the text if saving failed
   }
 
   return (
-    <form className="card form-card" onSubmit={submit}>
-      <h2>{task ? "Edit task" : "Create task"}</h2>
-      {error && <div className="alert error">{error}</div>}
-      <label>
+    <form className="card mb-6 animate-pop space-y-4 p-6" onSubmit={submit}>
+      <h2 className="text-xl font-bold">{task ? "Edit task" : "New task"}</h2>
+      {error && (
+        <div
+          key={error}
+          role="alert"
+          className="animate-shake rounded-xl bg-danger/10 px-4 py-2.5 text-sm font-medium text-danger"
+        >
+          {error}
+        </div>
+      )}
+      <label className="label">
         Title
         <input
+          className="field"
           name="title"
           value={form.title}
           onChange={update}
-          placeholder="Task title"
+          placeholder="What needs doing?"
+          autoFocus
         />
       </label>
-      <label>
+      <label className="label">
         Description
         <textarea
+          className="field min-h-24 resize-y"
           name="description"
           value={form.description}
           onChange={update}
-          placeholder="Optional description"
+          placeholder="Optional details"
         />
       </label>
-      <label>
+      <label className="label">
         Status
-        <select name="status" value={form.status} onChange={update}>
+        <select
+          className="field"
+          name="status"
+          value={form.status}
+          onChange={update}
+        >
           <option value="pending">Pending</option>
           <option value="completed">Completed</option>
         </select>
       </label>
-      <div className="actions">
-        <button className="primary" disabled={submitting}>
-          {submitting ? "Saving..." : task ? "Update" : "Create"}
+      <div className="flex gap-2">
+        <button className="btn btn-primary" disabled={submitting}>
+          {submitting ? "Saving…" : task ? "Save changes" : "Create task"}
         </button>
         {onCancel && (
-          <button type="button" onClick={onCancel}>
+          <button type="button" className="btn" onClick={onCancel}>
             Cancel
           </button>
         )}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ErrorMessage from "../components/ErrorMessage";
 
 export default function Login() {
   const { login } = useAuth();
@@ -17,7 +18,7 @@ export default function Login() {
   async function submit(e) {
     e.preventDefault();
     if (!form.email.trim() || !form.password) {
-      setError("Email and password are required");
+      setError("Enter your email and password");
       return;
     }
     setError("");
@@ -28,41 +29,53 @@ export default function Login() {
         replace: true,
       });
     } catch (err) {
-      setError(err.response?.data?.message || "Unable to login");
+      setError(err.response?.data?.message || "Unable to log in");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <main className="auth-page">
-      <form className="card auth-card" onSubmit={submit}>
-        <h1>Welcome back</h1>
-        <p>Sign in to manage your tasks.</p>
-        {error && <div className="alert error">{error}</div>}
-        <label>
-          Email
-          <input
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={update}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            name="password"
-            type="password"
-            value={form.password}
-            onChange={update}
-          />
-        </label>
-        <button className="primary full" disabled={loading}>
-          {loading ? "Signing in..." : "Login"}
+    <main className="grid min-h-screen place-items-center px-4">
+      <form className="card w-full max-w-md animate-rise p-8" onSubmit={submit}>
+        <h1 className="text-3xl font-extrabold">Welcome back</h1>
+        <p className="mt-1 text-ink/60">Log in to manage your tasks.</p>
+        <ErrorMessage message={error} />
+        <div className="mt-6 space-y-4">
+          <label className="label">
+            Email
+            <input
+              className="field"
+              name="email"
+              type="email"
+              autoComplete="email"
+              value={form.email}
+              onChange={update}
+            />
+          </label>
+          <label className="label">
+            Password
+            <input
+              className="field"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              value={form.password}
+              onChange={update}
+            />
+          </label>
+        </div>
+        <button className="btn btn-primary mt-6 w-full py-3" disabled={loading}>
+          {loading ? "Logging in…" : "Log in"}
         </button>
-        <p className="center-text">
-          No account? <Link to="/register">Create one</Link>
+        <p className="mt-5 text-center text-sm text-ink/60">
+          No account?{" "}
+          <Link
+            to="/register"
+            className="font-semibold text-brand hover:underline"
+          >
+            Create one
+          </Link>
         </p>
       </form>
     </main>
