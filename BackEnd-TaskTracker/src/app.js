@@ -9,8 +9,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://tasktracker-k.netlify.app/"],
-    credentials: true,
+    origin: "https://tasktracker-k.netlify.app/",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
